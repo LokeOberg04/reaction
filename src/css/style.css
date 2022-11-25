@@ -1,0 +1,49 @@
+:root {
+    --brand-height: 74.5%;
+    --brand-width: 99%;
+}
+
+.hw-100 {
+  height: 100px !important;
+  width: 100px !important;
+}
+
+body, html, main {
+  background-color: white;
+  height: 80%;
+			font-family: Verdana, Geneva, sans-serif;
+		}
+
+        header {
+            height: 20%;
+        }
+
+#ok {
+  margin-top: 50px;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  align-items: center;
+}
+
+#red {
+  height: var(--brand-height);
+    width: var(--brand-width);
+  background-color: red;
+  position: absolute;
+  text-align: center;
+}
+
+#test {
+  height: var(--brand-height);
+    width: var(--brand-width);
+  background-color: red;
+  position: absolute;
+}
+
+#box {
+				width: 100%;
+				height: 100%;
+				background-color: white;
+				display: none; 
+		}
