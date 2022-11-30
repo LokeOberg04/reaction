@@ -13,10 +13,8 @@ function gender() {
 }
 
 function fritid() {
-    let person = prompt("Vad gör du mest på fritiden?", "Din hobby");
-    if (person != null) {
+    let person = confirm("Spelar du dator spel på fritiden?");
         return person;
-    }
 }
 
 function getRandomColor() {
@@ -86,13 +84,12 @@ function makeBox() {
 
 document.getElementById("box").onclick = function () {
     active = 0;
-    round += 5;
+    round += 1;
     clickedTime = Date.now();
 
     reactionTime = (clickedTime - createdTime) / 1000;
 
     if (round < 3) {
-        average1 += reactionTime;
         answerObject.roundOne.data.push(reactionTime);
     } else if (round == 3) {
         answerObject.roundOne.data.push(reactionTime);
@@ -103,11 +100,11 @@ document.getElementById("box").onclick = function () {
         document.getElementById("test").classList.add("hw-100")
         document.getElementById("red").classList.add("hw-100")
     } else if (round > 3 && round < 6) {
-        average2 += reactionTime;
+        answerObject.roundTwo.data.push(reactionTime);
     } else {
-        average2 += reactionTime;
-        average2 = average2 / 3;
-        alert("Din genomsnittliga reaktionstid var " + answerObject.roundOne.average + " sekunder och " + average2 + " sekunder");
+        answerObject.roundTwo.data.push(reactionTime);
+        answerObject.roundTwo.average = answerObject.roundTwo.data.reduce((a, b) => a + b, 0) / answerObject.roundTwo.data.length;
+        alert("Din genomsnittliga reaktionstid var " + answerObject.roundOne.average + " sekunder och " + answerObject.roundTwo.average + " sekunder");
         data = confirm("Får jag spara din data?");
         if (data == true) {
             answerObject.age = age();
