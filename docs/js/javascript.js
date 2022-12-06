@@ -79,7 +79,7 @@ function makeBox() {
         createdTime = Date.now();
 
     }, time);
-
+    
 }
 
 document.getElementById("box").onclick = function () {
@@ -87,7 +87,7 @@ document.getElementById("box").onclick = function () {
     round += 1;
     clickedTime = Date.now();
 
-    reactionTime = (clickedTime - createdTime) / 1000;
+    reactionTime = (clickedTime - createdTime);
 
     if (round < 3) {
         answerObject.roundOne.data.push(reactionTime);
@@ -96,7 +96,7 @@ document.getElementById("box").onclick = function () {
         answerObject.roundOne.average = answerObject.roundOne.data.reduce((a, b) => a + b, 0) / answerObject.roundOne.data.length;
 
         //average1 = average1 / 3;
-        alert("Din genomsnittliga reaktionstid var " + answerObject.roundOne.average + " sekunder");
+        alert("Din genomsnittliga reaktionstid var " + Math.round(answerObject.roundOne.average) + " ms." +  "\nKlicka OK för att börja runda 2");
         document.getElementById("test").classList.add("hw-100")
         document.getElementById("red").classList.add("hw-100")
     } else if (round > 3 && round < 6) {
@@ -104,7 +104,7 @@ document.getElementById("box").onclick = function () {
     } else {
         answerObject.roundTwo.data.push(reactionTime);
         answerObject.roundTwo.average = answerObject.roundTwo.data.reduce((a, b) => a + b, 0) / answerObject.roundTwo.data.length;
-        alert("Din genomsnittliga reaktionstid var " + answerObject.roundOne.average + " sekunder och " + answerObject.roundTwo.average + " sekunder");
+        alert("Din genomsnittliga reaktionstid var " + Math.round(answerObject.roundOne.average) + " ms och " + Math.round(answerObject.roundTwo.average) + " ms");
         data = confirm("Får jag spara din data?");
         if (data == true) {
             answerObject.age = age();
@@ -126,7 +126,7 @@ document.getElementById("box").onclick = function () {
         console.log(answerObject)
     }
 
-    document.getElementById("printReactionTime").innerHTML = "Round " + round + " Din reaktionstid var: " + reactionTime + " sekunder";
+    document.getElementById("printReactionTime").innerHTML = "Runda " + round + " Din reaktionstid var: " + reactionTime + " ms";
 
     this.style.display = "none";
 
