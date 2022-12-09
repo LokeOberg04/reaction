@@ -19,6 +19,10 @@ body, html, main {
             height: 20%;
         }
 
+        h1 {
+          margin-block-start: 0rem;
+        }
+
 #ok {
   margin-top: 50px;
   height: 100%;
