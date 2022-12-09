@@ -15,7 +15,7 @@ function gender() {
 }
 
 function fritid() {
-    let person = confirm("Spelar du dator spel på fritiden?");
+    let person = prompt("Spelar du dator spel på fritiden? (Ja/Nej)");
     return person;
 }
 
@@ -84,7 +84,7 @@ endButton.addEventListener('mousedown', (e) => {
     reactionTime = Date.now() - activeTime;
     console.log(activeTime, Date.now(), reactionTime)
     startButton.classList.toggle('hide');
-    document.getElementById("printReactionTime").innerHTML = "Runda " + round + " Din reaktionstid var: " + reactionTime + " ms";
+    document.getElementById("printReactionTime").innerHTML = "Runda " + round + " var din reaktionstid: " + reactionTime + " ms";
 
     if (round < 3) {
         answerObject.roundOne.data.push(reactionTime);
