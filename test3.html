@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+
+        body {
+            display: grid;
+            place-content: center;
+            z-index: -1;
+        }
+
+        button {
+            width: 500px;
+            height: 500px;
+            font-size: 4rem;
+        }
+
+        #click-to-start {
+            z-index: 1;
+            background-color: green;
+        }
+
+        #click-to-end {
+            z-index: 2;
+            background-color: red;
+        }
+
+        .hide {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="click-to-start">Click to start</button>
+    <button id="click-to-fail" class="hide">...</button>
+    <button id="click-to-end" class="hide">Click to end</button>
+    <script>
+        let startButton = document.querySelector('#click-to-start');
+        let endButton = document.querySelector('#click-to-end');
+        let failButton = document.querySelector('#click-to-fail');
+
+        let last = 0;
+        let activeTime = 0;
+        let start = false;
+        let active = false;
+        let end = undefined;
+
+        failButton.addEventListener('click', (e) => {
+            start = false;
+            active = false;
+            activeTime = 0;
+            end = undefined;
+            console.log('fail');
+            startButton.classList.toggle('hide');
+            failButton.classList.toggle('hide');
+        });
+
+        endButton.addEventListener('click', (e) => {
+            start = false;
+            active = false;
+            end = undefined;
+            endButton.classList.toggle('hide');
+            console.log(activeTime, last, last - activeTime)
+            startButton.classList.toggle('hide');
+        });
+
+        startButton.addEventListener('click', (e) => {
+            start = true;
+            active = false;
+            end = last + 1000 + Math.random() * 2000;
+            startButton.classList.toggle('hide');
+            failButton.classList.toggle('hide');
+        });
+
+        function step(timestamp) {
+            if (timestamp >= last + 1000) {
+                last = timestamp;
+            }
+
+            if (end !== undefined && timestamp >= end && !active && start) {
+                active = true;
+                console.log('active');
+                activeTime = timestamp;
+                failButton.classList.toggle('hide');
+                endButton.classList.toggle('hide');
+            }
+
+            window.requestAnimationFrame(step);
+        }
+        step();
+    </script>
+</body>
+
+</html>

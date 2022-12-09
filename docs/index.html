@@ -7,6 +7,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <title>Reaktionstids test</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+
+        body {
+            display: grid;
+            place-content: center;
+            z-index: -1;
+        }
+
+        button {
+            width: 500px;
+            height: 500px;
+            font-size: 4rem;
+        }
+
+        #click-to-start {
+            z-index: 1;
+            background-color: green;
+        }
+
+        #click-to-end {
+            z-index: 2;
+            background-color: red;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .all {
+            font-size: 4rem;
+        }
+    </style>
 </head>
 
 <body>
@@ -15,15 +53,11 @@
         <p>Klicka så snabbt som du kan när lådan blir grön. Din reaktionstid kommer visas nedanför: </p>
         <p id="printReactionTime"></p>
     </header>
-    <div id="ok">
-        <div id="red">
-            <p>Klicka här för att börja</p>
-        </div>
-        <div id="box">
-            <div id="test"></div>
-        </div>
-    </div>
-    <script src="js/javascript.js"></script>
+    
+    <button id="click-to-start">Click to start</button>
+    <button id="click-to-fail" class="hide">...</button>
+    <button id="click-to-end" class="hide">Click to end</button>
+    <script src="js/javascript2.js"></script>
 </body>
 
 </html>

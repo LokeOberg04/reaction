@@ -19,84 +19,6 @@ function fritid() {
     return person;
 }
 
-function getRandomColor() {
-
-    var color = "#00ff00";
-    return color;
-
-
-}
-
-function getRedColor() {
-
-    var color = "#ff0000";
-    return color;
-
-
-}
-
-function startclick() {
-    if (active == 0) {
-        active = 1;
-        document.getElementById("red").innerHTML = "";
-        makeBox();
-    }
-}
-
-function boxclick() {
-    active = 0;
-    round += 1;
-    clickedTime = Date.now();
-
-    reactionTime = (clickedTime - createdTime);
-
-    if (round < 3) {
-        answerObject.roundOne.data.push(reactionTime);
-    } else if (round == 3) {
-        answerObject.roundOne.data.push(reactionTime);
-        answerObject.roundOne.average = answerObject.roundOne.data.reduce((a, b) => a + b, 0) / answerObject.roundOne.data.length;
-
-        //average1 = average1 / 3;
-        alert("Din genomsnittliga reaktionstid var " + Math.round(answerObject.roundOne.average) + " ms." + "\nKlicka OK för att börja Test 2");
-        document.getElementById("test").classList.add("hw-100")
-        document.getElementById("red").classList.add("hw-100")
-    } else if (round > 3 && round < 6) {
-        answerObject.roundTwo.data.push(reactionTime);
-    } else {
-        answerObject.roundTwo.data.push(reactionTime);
-        answerObject.roundTwo.average = answerObject.roundTwo.data.reduce((a, b) => a + b, 0) / answerObject.roundTwo.data.length;
-        alert("Din genomsnittliga reaktionstid var " + Math.round(answerObject.roundOne.average) + " ms och " + Math.round(answerObject.roundTwo.average) + " ms");
-        data = confirm("Får jag spara din data?");
-        if (data == true) {
-            answerObject.age = age();
-            answerObject.gender = gender();
-            answerObject.gamer = fritid();
-            // spara data om Data = true
-
-
-            sendResult('https://pewter-shy-anglerfish.glitch.me/');
-
-        }
-        round = 0;
-        average1 = 0;
-        average2 = 0;
-        reactionTime = 0;
-        document.getElementById("test").classList.remove("hw-100")
-        document.getElementById("red").classList.remove("hw-100")
-        alert("Tack för att du körde mitt test 😁😁😁");
-        console.log(answerObject)
-    }
-
-    document.getElementById("printReactionTime").innerHTML = "Runda " + round + " Din reaktionstid var: " + reactionTime + " ms";
-
-    this.style.display = "none";
-
-    document.getElementById("red").innerHTML = "Klicka för att starta nästa runda.";
-
-    document.getElementById("red").addEventListener("mousedown", startclick);
-}
-
-
 function sendResult(url) {
     if (!url) return;
     fetch(url, {
@@ -115,23 +37,6 @@ function sendResult(url) {
         });
 }
 
-function makeBox() {
-    let time = Math.random() * 4000 + 1000;
-
-    console.log('box created')
-
-    setTimeout(function () {
-        //document.getElementById("test").style.backgroundColor = getRandomColor();
-
-        document.getElementById("box").style.display = "block";
-
-        createdTime = Date.now();
-
-        console.log('green box appears')
-
-    }, time);
-
-}
 
 let answerObject = {
     gender: false,
@@ -147,8 +52,106 @@ let answerObject = {
     }
 };
 
-var data; var age; var gender; var fritid; var active = 0; var average1 = 0; var average2 = 0; var round = 0; var clickedTime; var createdTime; var reactionTime;
 
 
-document.getElementById("box").addEventListener("mousedown", boxclick);
-document.getElementById("red").addEventListener("mousedown", startclick);
+let startButton = document.querySelector('#click-to-start');
+        let endButton = document.querySelector('#click-to-end');
+        let failButton = document.querySelector('#click-to-fail');
+
+        let last = 0;
+        let activeTime = 0;
+        let start = false;
+        let active = false;
+        let end = undefined;
+        let round = 1;
+        let reactionTime = 0;
+
+        failButton.addEventListener('mousedown', (e) => {
+            start = false;
+            active = false;
+            activeTime = 0;
+            end = undefined;
+            console.log('fail');
+            startButton.classList.toggle('hide');
+            failButton.classList.toggle('hide');
+        });
+
+        endButton.addEventListener('mousedown', (e) => {
+            start = false;
+            active = false;
+            end = undefined;
+            endButton.classList.toggle('hide');
+            reactionTime = Date.now() - activeTime;
+            console.log(activeTime, Date.now(), reactionTime)
+            startButton.classList.toggle('hide');
+            document.getElementById("printReactionTime").innerHTML = "Runda " + round + " Din reaktionstid var: " + reactionTime + " ms";
+
+            if (round < 3) {
+                answerObject.roundOne.data.push(reactionTime);
+            } else if (round == 3) {
+                answerObject.roundOne.data.push(reactionTime);
+                answerObject.roundOne.average = answerObject.roundOne.data.reduce((a, b) => a + b, 0) / answerObject.roundOne.data.length;
+        
+                //average1 = average1 / 3;
+                alert("Din genomsnittliga reaktionstid var " + Math.round(answerObject.roundOne.average) + " ms." + "\nKlicka OK för att börja Test 2");
+                document.getElementById("click-to-start").classList.add("hw-100")
+                document.getElementById("click-to-end").classList.add("hw-100")
+                document.getElementById("click-to-fail").classList.add("hw-100")
+            } else if (round > 3 && round < 6) {
+                answerObject.roundTwo.data.push(reactionTime);
+            } else {
+                answerObject.roundTwo.data.push(reactionTime);
+                answerObject.roundTwo.average = answerObject.roundTwo.data.reduce((a, b) => a + b, 0) / answerObject.roundTwo.data.length;
+                console.log(answerObject)
+                alert("Din genomsnittliga reaktionstid var " + Math.round(answerObject.roundOne.average) + " ms och " + Math.round(answerObject.roundTwo.average) + " ms");
+                data = confirm("Får jag spara din data?");
+                if (data == true) {
+                    answerObject.age = age();
+                    answerObject.gender = gender();
+                    answerObject.gamer = fritid();
+                    // spara data om Data = true
+        
+        
+                    sendResult('https://pewter-shy-anglerfish.glitch.me/');
+        
+                }
+                round = 0;
+                average1 = 0;
+                average2 = 0;
+                reactionTime = 0;
+                answerObject.roundOne.data = [];
+                answerObject.roundTwo.data = [];
+                document.getElementById("click-to-start").classList.remove("hw-100")
+                document.getElementById("click-to-end").classList.remove("hw-100")
+                document.getElementById("click-to-fail").classList.remove("hw-100")
+                document.getElementById("printReactionTime").innerHTML = "";
+                alert("Tack för att du körde mitt test 😁😁😁");
+            }
+        
+            round += 1;
+        });
+
+        startButton.addEventListener('mousedown', (e) => {
+            start = true;
+            active = false;
+            end = Date.now() + 1000 + Math.random() * 2000;
+            startButton.classList.toggle('hide');
+            failButton.classList.toggle('hide');
+        });
+
+        function step(timestamp) {
+            if (timestamp >= last + 1000) {
+                last = timestamp;
+            }
+
+            if (end !== undefined && Date.now() >= end && !active && start) {
+                active = true;
+                console.log('active');
+                activeTime = Date.now();
+                failButton.classList.toggle('hide');
+                endButton.classList.toggle('hide');
+            }
+
+            window.requestAnimationFrame(step);
+        }
+        step();
