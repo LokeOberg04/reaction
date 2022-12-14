@@ -65,11 +65,8 @@ let end = undefined;
 let round = 1;
 let reactionTime = 0;
 
-if (localStorage.getItem("username") == null || localStorage.getItem("username") == "null") {
-    localStorage.setItem("username", prompt("Vad vill du bli kallad", "xXBoxClicker42Xx"));
-    localStorage.setItem("played", 0);
-    }
-    console.log(localStorage.getItem("username"));
+
+    console.log(localStorage.getItem("played"));
 
 failButton.addEventListener('mousedown', (e) => {
     start = false;
@@ -108,17 +105,20 @@ endButton.addEventListener('mousedown', (e) => {
         answerObject.roundTwo.data.push(reactionTime);
         answerObject.roundTwo.average = answerObject.roundTwo.data.reduce((a, b) => a + b, 0) / answerObject.roundTwo.data.length;
         alert("Din genomsnittliga reaktionstid var " + Math.round(answerObject.roundOne.average) + " ms och " + Math.round(answerObject.roundTwo.average) + " ms");
-        if (localStorage.getItem("played") == 0 && localStorage.getItem("username") != null && localStorage.getItem("username") != "null") {
+        if (localStorage.getItem("played") != 1) {
         data = confirm("Får jag spara din data?");
         if (data == true) {
             answerObject.age = age();
             answerObject.gender = gender();
             answerObject.gamer = fritid();
             // spara data om Data = true
-
+if (answerObject.age == null || answerObject.gender == null || answerObject.gamer == null) {
+    alert("Test avbrutet");
+} else {
             sendResult('https://pewter-shy-anglerfish.glitch.me/');
             
             localStorage.setItem("played", 1);
+}
         }
         }
         
