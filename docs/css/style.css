@@ -1,54 +1,52 @@
-:root {
-    --brand-height: 74.5%;
-    --brand-width: 99%;
-}
-
 .hw-100 {
-  height: 100px !important;
-  width: 100px !important;
+  width: 10% !important;
   font-size: 1rem !important;
 }
 
-body, html, main {
+body,
+html {
   background-color: white;
-  height: 80%;
-			font-family: Verdana, Geneva, sans-serif;
-		}
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  font-family: Verdana, Geneva, sans-serif;
+}
 
-        header {
-            height: 20%;
-        }
-
-        h1 {
-          margin-block-start: 0rem;
-        }
-
-#ok {
-  margin-top: 50px;
-  height: 100%;
+main {
+  display: grid;
   width: 100%;
-  background-color: white;
-  align-items: center;
+  height: 60%;
+  place-items: center;
 }
 
-#red {
-  height: var(--brand-height);
-    width: var(--brand-width);
+h1 {
+  margin-block-start: 0rem;
+}
+
+
+button {
+  width: 30%;
+  aspect-ratio: 1;
+  font-size: 4rem;
+  display: block;
+}
+
+
+header {
+  width: min(80ch, 100vw - 4rem);
+  margin-inline: auto;
+}
+
+#click-to-start {
+  z-index: 1;
+  background-color: #00bc00;
+}
+
+#click-to-end {
+  z-index: 2;
   background-color: red;
-  position: absolute;
-  text-align: center;
 }
 
-#test {
-  height: var(--brand-height);
-    width: var(--brand-width);
-  background-color: #00ff00;
-  position: absolute;
+.hide {
+  display: none;
 }
-
-#box {
-				width: 100%;
-				height: 100%;
-				background-color: white;
-				display: none; 
-		}
