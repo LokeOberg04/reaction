@@ -6,16 +6,9 @@ function age() {
     }
 }
 
-function gender() {
-    let person = prompt("Vad identifierar du dig som?", "Ditt kön");
-    if (person != null) {
-        data = false;
-        return person;
-    }
-}
 
 function fritid() {
-    let person = prompt("Spelar du dator spel på fritiden? (Ja/Nej)");
+    let person = prompt("Vad är ditt favorit genre av spel? (FPS,RTS,Moba,osv)");
     return person;
 }
 
@@ -39,7 +32,6 @@ function sendResult(url) {
 
 
 let answerObject = {
-    gender: false,
     age: 0,
     gamer: false,
     roundOne: {
@@ -49,7 +41,8 @@ let answerObject = {
     roundTwo: {
         data: [],
         average: 0
-    }
+    },
+    delta: 0
 };
 
 
@@ -105,14 +98,14 @@ endButton.addEventListener('mousedown', (e) => {
         answerObject.roundTwo.data.push(reactionTime);
         answerObject.roundTwo.average = answerObject.roundTwo.data.reduce((a, b) => a + b, 0) / answerObject.roundTwo.data.length;
         alert("Din genomsnittliga reaktionstid var " + Math.round(answerObject.roundOne.average) + " ms och " + Math.round(answerObject.roundTwo.average) + " ms");
+        answerObject.delta = (answerObject.roundTwo.average - answerObject.roundOne.average)
         if (localStorage.getItem("played") != 1) {
         data = confirm("Får jag spara din data?");
         if (data == true) {
             answerObject.age = age();
-            answerObject.gender = gender();
             answerObject.gamer = fritid();
             // spara data om Data = true
-if (answerObject.age == null || answerObject.gender == null || answerObject.gamer == null) {
+if (answerObject.age == null || answerObject.gamer == null) {
     alert("Test avbrutet");
 } else {
             sendResult('https://pewter-shy-anglerfish.glitch.me/');
