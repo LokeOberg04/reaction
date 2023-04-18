@@ -1,16 +1,11 @@
-function age() {
-    let person = prompt("Hur gammal är du?", "Din ålder");
+function namn() {
+    let person = prompt("Vad vill du heta?", "Ditt namn");
     if (person != null) {
         data = false;
         return person;
     }
 }
 
-
-function fritid() {
-    let person = prompt("Vad är ditt favorit genre av spel? (FPS,RTS,Moba,osv)");
-    return person;
-}
 
 function sendResult(url) {
     if (!url) return;
@@ -32,17 +27,11 @@ function sendResult(url) {
 
 
 let answerObject = {
-    age: 0,
-    gamer: false,
+    namn: "guest",
     roundOne: {
         data: [],
         average: 0
-    },
-    roundTwo: {
-        data: [],
-        average: 0
-    },
-    delta: 0
+    }
 };
 
 
@@ -59,7 +48,6 @@ let round = 1;
 let reactionTime = 0;
 
 
-    console.log(localStorage.getItem("played"));
 
 failButton.addEventListener('mousedown', (e) => {
     start = false;
@@ -102,15 +90,13 @@ endButton.addEventListener('mousedown', (e) => {
         if (localStorage.getItem("played") != 1) {
         data = confirm("Får jag spara din data?");
         if (data == true) {
-            answerObject.age = age();
-            answerObject.gamer = fritid();
+            answerObject.namn = namn();
             // spara data om Data = true
-if (answerObject.age == null || answerObject.gamer == null) {
+if (answerObject.namn == null) {
     alert("Test avbrutet");
 } else {
-            sendResult('https://pewter-shy-anglerfish.glitch.me/');
+            sendResult('');
             
-            localStorage.setItem("played", 1);
 }
         }
         }
