@@ -7,19 +7,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="https://cdn.discordapp.com/attachments/764150645174960178/1023944345545621524/unknown.png">
-    <title>Reaktionstids test</title>
+    <title>Itemdle</title>
 </head>
 
 <body>
     <header class="header">
-        <h1>Testa din reaktionstid!</h1>
-        <p>*koola jävla lista på... yeah*</p>
-        <p id="printReactionTime"></p>
+        <h1>Guess the mythic!</h1>
+        <p id="printGuesses"></p>
+                <p id="hints"></p>
+        <label for="guess" name="guess">Guess</label>
+    <!--<input type="text" name="guess" id="guess"> -->
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+
+<ul id="myUL">
+</ul>
+
+        <input id="clickMe" type="button" value="submit" onclick="doFunction();" />
     </header>
 <main>
-    <button id="click-to-start">Klicka för att starta</button>
-    <button id="click-to-fail" class="hide">...</button>
-    <button id="click-to-end" class="hide">KLICKA!!!</button>
     </main>
     <script src="js/javascript.js"></script>
 </body>

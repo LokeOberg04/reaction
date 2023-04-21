@@ -2,12 +2,12 @@
 
 ## vad?
 
-Reaktionstids test med leaderboard :)
+Guess the league of legends item, typ some Loldle.com fast istället för champions så gissar man items
 
 ## varför?
 
-Träna att använda databas
+Lät roligt och jag vill bli bättre på javascript.
 
 ## hur?
 
-MySQL and stuff
+en massa javascript

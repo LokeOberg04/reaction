@@ -1,144 +1,67 @@
-function namn() {
-    let person = prompt("Vad vill du heta?", "Ditt namn");
-    if (person != null) {
-        data = false;
-        return person;
+function doFunction() {
+    console.log(guessnum)
+    guess = document.getElementsByTagName("input")[0].value;
+    guesses++;
+    document.getElementById("printGuesses").innerHTML = "You have made " + guesses + " guesses.";
+    let hints = document.getElementById("hints");
+    let hint = document.createElement("p");
+hints.append(hint);
+    hint.innerText += "ad: " + items.mythics.ad[itemnum];
+    console.log("Your guess: " + guess);
+    console.log("guesses = " + guesses)
+    if (guess.toLowerCase() === item.toLowerCase()) {
+        alert("You won!\nThe item was: " + item + "\nYou did it in " + guesses + " guesses.");
+        guesses = 0;
     }
 }
-
-
-function sendResult(url) {
-    if (!url) return;
-    fetch(url, {
-        method: 'POST', // or 'PUT'
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(answerObject),
-    })
-        .then((response) => response.json())
-        .then((data) => {
-            console.log('Success!');
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
-}
-
-
-let answerObject = {
-    namn: "guest",
-    roundOne: {
-        data: [],
-        average: 0
+let items = {
+    mythics: {
+        data: ["Goredrinker","Duskblade","Liandrys","Prowlers","Jak'Sho"],
+        ad: ["Yes","Yes","No","Yes","No"],
     }
 };
 
+let list = document.getElementById("myUL");
+items.mythics.data.forEach((item)=>{
+    let li = document.createElement("li");
+    let a = document.createElement("a");
+    
+    a.innerText = item;
+    a.setAttribute('onclick','searchItem("' + item + '");')
+    list.appendChild(li);
+    li.appendChild(a);
+  })
 
-let startButton = document.querySelector('#click-to-start');
-let endButton = document.querySelector('#click-to-end');
-let failButton = document.querySelector('#click-to-fail');
-
-let last = 0;
-let activeTime = 0;
-let start = false;
-let active = false;
-let end = undefined;
-let round = 1;
-let reactionTime = 0;
-
-
-
-failButton.addEventListener('mousedown', (e) => {
-    start = false;
-    active = false;
-    activeTime = 0;
-    end = undefined;
-    console.log('fail');
-    startButton.classList.toggle('hide');
-    failButton.classList.toggle('hide');
-});
-
-endButton.addEventListener('mousedown', (e) => {
-    start = false;
-    active = false;
-    end = undefined;
-    endButton.classList.toggle('hide');
-    reactionTime = Date.now() - activeTime;
-    console.log(activeTime, Date.now(), reactionTime)
-    startButton.classList.toggle('hide');
-    document.getElementById("printReactionTime").innerHTML = "Runda " + round + " var din reaktionstid: " + reactionTime + " ms";
-
-    if (round < 3) {
-        answerObject.roundOne.data.push(reactionTime);
-    } else if (round == 3) {
-        answerObject.roundOne.data.push(reactionTime);
-        answerObject.roundOne.average = answerObject.roundOne.data.reduce((a, b) => a + b, 0) / answerObject.roundOne.data.length;
-
-        //average1 = average1 / 3;
-        alert("Din genomsnittliga reaktionstid var " + Math.round(answerObject.roundOne.average) + " ms." + "\nKlicka OK för att börja Test 2");
-        document.getElementById("click-to-start").classList.add("hw-100")
-        document.getElementById("click-to-end").classList.add("hw-100")
-        document.getElementById("click-to-fail").classList.add("hw-100")
-    } else if (round > 3 && round < 6) {
-        answerObject.roundTwo.data.push(reactionTime);
-    } else {
-        answerObject.roundTwo.data.push(reactionTime);
-        answerObject.roundTwo.average = answerObject.roundTwo.data.reduce((a, b) => a + b, 0) / answerObject.roundTwo.data.length;
-        alert("Din genomsnittliga reaktionstid var " + Math.round(answerObject.roundOne.average) + " ms och " + Math.round(answerObject.roundTwo.average) + " ms");
-        answerObject.delta = (answerObject.roundTwo.average - answerObject.roundOne.average)
-        if (localStorage.getItem("played") != 1) {
-        data = confirm("Får jag spara din data?");
-        if (data == true) {
-            answerObject.namn = namn();
-            // spara data om Data = true
-if (answerObject.namn == null) {
-    alert("Test avbrutet");
-} else {
-            sendResult('');
-            
+function searchItem(item) {
+    console.log("gordink")
+    document.getElementById("myInput").value = item;
 }
-        }
-        }
-        
-        console.log(answerObject)
-        round = 0;
-        average1 = 0;
-        average2 = 0;
-        reactionTime = 0;
-        answerObject.roundOne.data = [];
-        answerObject.roundTwo.data = [];
-        document.getElementById("click-to-start").classList.remove("hw-100")
-        document.getElementById("click-to-end").classList.remove("hw-100")
-        document.getElementById("click-to-fail").classList.remove("hw-100")
-        document.getElementById("printReactionTime").innerHTML = "";
-        alert("Tack för att du körde mitt test 😁😁😁");
+
+
+let guesses = 0;
+let guessnum = 0;
+let guess = "";
+let itemnum = Math.round(Math.random() * 3);
+let item = items.mythics.data[itemnum];
+
+console.log(item)
+
+function myFunction() {
+    // Declare variables
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById('myInput');
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL");
+    li = ul.getElementsByTagName('li');
+  
+    // Loop through all list items, and hide those who don't match the search query
+    for (i = 0; i < li.length; i++) {
+      a = li[i].getElementsByTagName("a")[0];
+      txtValue = a.textContent || a.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        li[i].style.display = "";
+      } else {
+        li[i].style.display = "none";
+      }
     }
-
-    round += 1;
-});
-
-startButton.addEventListener('mousedown', (e) => {
-    start = true;
-    active = false;
-    end = Date.now() + 2000 + Math.random() * 3000;
-    startButton.classList.toggle('hide');
-    failButton.classList.toggle('hide');
-});
-
-function step(timestamp) {
-    if (timestamp >= last + 1000) {
-        last = timestamp;
-    }
-
-    if (end !== undefined && Date.now() >= end && !active && start) {
-        active = true;
-        console.log('active');
-        activeTime = Date.now();
-        failButton.classList.toggle('hide');
-        endButton.classList.toggle('hide');
-    }
-
-    window.requestAnimationFrame(step);
-}
-step();
+  }
